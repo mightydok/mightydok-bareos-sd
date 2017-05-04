@@ -19,6 +19,7 @@
         name: "{{ item }}"
         state: present
         update_cache: yes
+        cache_valid_time: 3600
     with_items: "{{ mightydok_bareos_sd_packages }}"
 
 # Place config for bareos-dir and bareos-mon
@@ -34,13 +35,19 @@
         - bareos-mon.conf
     notify: restart bareos-sd
 
-# Place config for bareos-dir and bareos-mon
--   name: Place Device config for bareos-sd
+# Copy storage servers templates
+-   name: Create bareos-sd config files
     template:
-        src: templates/device.conf.j2
-        dest: /etc/bareos/bareos-sd.d/device/{{ item.device }}.conf
+        src: "{{ item }}"
+        dest: /etc/bareos/bareos-sd.d/{{ item | basename | regex_replace('\.conf.j2','') }}/ansible.conf
         owner: bareos
         group: bareos
         mode: 0750
-    with_items: "{{ mightydok_bareos_sd_device }}"
+    with_fileglob: ../templates/bareos/*.j2
     notify: restart bareos-sd
+
+# Autostart bareos-sd
+-   name: Ensure bareos-sd autorun
+    service:
+        name: bareos-sd
+        enabled: yes

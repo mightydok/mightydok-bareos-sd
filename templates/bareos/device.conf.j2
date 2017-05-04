@@ -1,14 +1,18 @@
 # {{ ansible_managed }}
 #
 
+{% for device in mightydok_bareos_sd_device %}
+
 Device {
-  Name = {{ item.device }}
+  Name = "{{ device.name }}"
   Media Type = File
-  Archive Device = "{{ item.path }}"
+  Archive Device = "{{ device.archive_device }}"
   LabelMedia = yes;                   # lets Bareos label unlabeled media
   Random Access = yes;
   AutomaticMount = yes;               # when device opened, read it
   RemovableMedia = no;
   AlwaysOpen = no;
-  Description = "File device. A connecting Director must have the same Name and MediaType."
+  Description = ""
 }
+
+{% endfor %}

@@ -12,4 +12,5 @@ mightydok_bareos_sd_mon_pass: ""
 # List of storage devices
 # - { device: "FileOpt", path: "/opt/" }
 mightydok_bareos_sd_device:
-    - { device: "", path: "" }
+    - name: "AnsibleFile"
+      archive_device: "/var/lib/bareos/storage"
