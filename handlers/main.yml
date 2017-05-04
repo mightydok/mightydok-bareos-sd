@@ -1,0 +1,7 @@
+---
+# handlers file for mightydok-bareos-sd
+
+-   name: restart bareos-sd
+    service:
+        name: bareos-sd
+        state: restarted

@@ -1,0 +1,46 @@
+---
+# tasks file for mightydok-bareos-sd
+
+# Add bareos repo key
+-   name: Add Bareos repository key
+    apt_key:
+        url: "http://download.bareos.org/bareos/release/latest/xUbuntu_16.04/Release.key"
+        state: present
+
+# Add bareos repo
+-   name: Add Bareos repository
+    apt_repository:
+        repo: deb http://download.bareos.org/bareos/release/latest/xUbuntu_16.04/ /
+        state: present
+
+# Install bareos-sd packages
+-   name: Install bareos-sd pakages
+    apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+    with_items: "{{ mightydok_bareos_sd_packages }}"
+
+# Place config for bareos-dir and bareos-mon
+-   name: Place config for bareos-sd
+    template:
+        src: templates/{{ item }}.j2
+        dest: /etc/bareos/bareos-sd.d/director/{{ item }}
+        owner: bareos
+        group: bareos
+        mode: 0750
+    with_items:
+        - bareos-dir.conf
+        - bareos-mon.conf
+    notify: restart bareos-sd
+
+# Place config for bareos-dir and bareos-mon
+-   name: Place Device config for bareos-sd
+    template:
+        src: templates/device.conf.j2
+        dest: /etc/bareos/bareos-sd.d/device/{{ item.device }}.conf
+        owner: bareos
+        group: bareos
+        mode: 0750
+    with_items: "{{ mightydok_bareos_sd_device }}"
+    notify: restart bareos-sd

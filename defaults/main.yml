@@ -1,0 +1,15 @@
+---
+# defaults file for mightydok-bareos-sd
+
+# List of bareos director packages
+mightydok_bareos_sd_packages:
+    - bareos-storage
+
+# Pass for SD for director and tray mon
+mightydok_bareos_sd_dir_pass: ""
+mightydok_bareos_sd_mon_pass: ""
+
+# List of storage devices
+# - { device: "FileOpt", path: "/opt/" }
+mightydok_bareos_sd_device:
+    - { device: "", path: "" }

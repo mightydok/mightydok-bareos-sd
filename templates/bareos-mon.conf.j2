@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+#
+
+Director {
+  Name = bareos-mon
+  Password = "{{ mightydok_bareos_sd_mon_pass }}"
+  Monitor = yes
+  Description = "Restricted Director, used by tray-monitor to get the status of this storage daemon."
+}
