@@ -35,6 +35,16 @@
         - bareos-mon.conf
     notify: restart bareos-sd
 
+# Place config for bareos-dir and bareos-mon
+-   name: Place config for storage
+    template:
+        src: templates/bareos-sd.conf.j2
+        dest: /etc/bareos/bareos-sd.d/storage/bareos-sd.conf
+        owner: bareos
+        group: bareos
+        mode: 0750
+    notify: restart bareos-sd
+
 # Copy storage servers templates
 -   name: Create bareos-sd config files
     template:
