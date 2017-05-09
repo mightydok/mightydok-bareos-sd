@@ -10,7 +10,7 @@ mightydok_bareos_sd_dir_pass: ""
 mightydok_bareos_sd_mon_pass: ""
 
 # Set SD name
-mightydok_bareos_sd_name: "{{ ansible_hostname }}"
+mightydok_bareos_sd_name: "{{ ansible_fqdn }}"
 
 # List of storage devices
 # - { device: "FileOpt", path: "/opt/" }
