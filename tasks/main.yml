@@ -52,7 +52,7 @@
         owner: bareos
         group: bareos
         mode: 0750
-        state: present
+        state: directory
     with_items: "{{ mightydok_bareos_sd_device }}"
 
 # Copy storage servers templates
