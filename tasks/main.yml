@@ -47,7 +47,8 @@
 
 # Create storage directory
 -   name: Create storage directories
-    file: "{{ item.archive_device }}"
+    file:
+        path: "{{ item.archive_device }}"
         owner: bareos
         group: bareos
         mode: 0750
