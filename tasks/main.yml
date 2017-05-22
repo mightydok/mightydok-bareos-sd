@@ -45,6 +45,15 @@
         mode: 0750
     notify: restart bareos-sd
 
+# Create storage directory
+-   name: Create storage directories
+    file: "{{ item.archive_device }}"
+        owner: bareos
+        group: bareos
+        mode: 0750
+        state: present
+    with_items: "{{ mightydok_bareos_sd_device }}"
+
 # Copy storage servers templates
 -   name: Create bareos-sd config files
     template:
